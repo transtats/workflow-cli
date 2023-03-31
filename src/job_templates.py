@@ -12,16 +12,38 @@ class JobTemplate:
     name: str
     type: str
     tasks: List[str] = field(default_factory=list)
+    params: List[str] = field(default_factory=list)
 
     def __str__(self):
         tasks: str = ", ".join(self.tasks)
-        return f"Job template '{self.name}' is of type '{self.type}' and has '{tasks}' tasks."
+        params: str = ", ".join(self.params)
+        return f"Job template '{self.name}' is of type '{self.type}' and has '{tasks}' " \
+               f"tasks with '{params}' params."
+
+
+def find_job_params(parsed_job_template: dict) -> List[str]:
+    cap_values = []
+    for _, value in parsed_job_template.items():
+        if isinstance(value, str) and value.isupper():
+            cap_values.append(value)
+        elif isinstance(value, dict):
+            results = find_job_params(value)
+            for result in results:
+                cap_values.append(result)
+        elif isinstance(value, list):
+            for item in value:
+                if isinstance(item, dict):
+                    more_results = find_job_params(item)
+                    for another_result in more_results:
+                        cap_values.append(another_result)
+    return list(set(cap_values))
 
 
 def parse_job_template(job_template_file_path: str) -> JobTemplate:
     job_name: str = ""
     job_type: str = ""
     job_tasks: List[str] = []
+    job_params: List[str] = []
     try:
         with open(job_template_file_path, 'r') as yaml_file_stream:
             parsed_job_template: dict = yaml.safe_load(yaml_file_stream)
@@ -29,11 +51,12 @@ def parse_job_template(job_template_file_path: str) -> JobTemplate:
             job_type = parsed_job_template['job']['type']
             for tasks in parsed_job_template['job']['tasks']:
                 job_tasks.extend(list(tasks.keys()))
+            job_params = find_job_params(parsed_job_template)
     except yaml.YAMLError as exc:
         print(exc)
     except IndexError as exc:
         print(exc)
-    return JobTemplate(job_name, job_type, job_tasks)
+    return JobTemplate(job_name, job_type, job_tasks, job_params)
 
 
 def get_job_templates() -> List[JobTemplate]:
