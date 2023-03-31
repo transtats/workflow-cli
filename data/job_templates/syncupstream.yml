@@ -1,0 +1,19 @@
+job:
+  exception: raise
+  execution: sequential
+  name: upstream stats
+  package: PACKAGE_NAME
+  return_type: json
+  tasks:
+  - clone:
+    - name: git repo
+    - type: REPO_TYPE
+    - branch: REPO_BRANCH
+    - recursive: false
+  - filter:
+    - name: files
+    - domain: PACKAGE_NAME
+    - ext: PO
+    - dir: ''
+  - calculate: Stats
+  type: syncupstream

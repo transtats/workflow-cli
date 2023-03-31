@@ -1,3 +1,4 @@
+click
 polib
 pyyaml
 requests
