@@ -1,3 +1,4 @@
+import click
 import os
 from dataclasses import dataclass, field
 from typing import List
@@ -68,3 +69,11 @@ def get_job_templates() -> List[JobTemplate]:
             parsed_job_template: JobTemplate = parse_job_template(yaml_job_template_file_path)
             job_templates.append(parsed_job_template)
     return job_templates
+
+
+@click.command()
+def templates():
+    """List available job templates."""
+    available_job_templates: List[JobTemplate] = get_job_templates()
+    for idx, template in enumerate(available_job_templates):
+        print(f"{idx+1}. {template}")
