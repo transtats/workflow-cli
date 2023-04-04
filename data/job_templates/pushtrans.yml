@@ -1,5 +1,5 @@
 job:
-  ci_pipeline: PIPELINE_UUID
+  ci_pipeline: PROJECT_UID
   exception: raise
   execution: sequential
   name: push translations
@@ -14,7 +14,7 @@ job:
   - filter:
     - name: files
     - domain: PACKAGE_NAME
-    - ext: PO
+    - ext: FORMAT
     - dir: ''
   - upload:
     - name: Push files

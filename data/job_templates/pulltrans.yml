@@ -1,5 +1,5 @@
 job:
-  ci_pipeline: PIPELINE_UUID
+  ci_pipeline: PROJECT_UID
   exception: raise
   execution: sequential
   name: pull translations
