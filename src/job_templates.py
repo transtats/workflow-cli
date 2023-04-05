@@ -12,6 +12,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 class JobTemplate:
     name: str
     type: str
+    _dict: dict = field(default_factory=dict)
     tasks: List[str] = field(default_factory=list)
     params: List[str] = field(default_factory=list)
 
@@ -20,6 +21,9 @@ class JobTemplate:
         params: str = ", ".join(self.params)
         return f"Job template '{self.name}' is of type '{self.type}' and has '{tasks}' " \
                f"tasks with '{params}' params."
+
+    def get_dict_form(self):
+        return self._dict
 
 
 def find_job_params(parsed_job_template: dict) -> List[str]:
@@ -43,6 +47,7 @@ def find_job_params(parsed_job_template: dict) -> List[str]:
 def parse_job_template(job_template_file_path: str) -> JobTemplate:
     job_name: str = ""
     job_type: str = ""
+    _dict: dict = {}
     job_tasks: List[str] = []
     job_params: List[str] = []
     try:
@@ -53,11 +58,12 @@ def parse_job_template(job_template_file_path: str) -> JobTemplate:
             for tasks in parsed_job_template['job']['tasks']:
                 job_tasks.extend(list(tasks.keys()))
             job_params = find_job_params(parsed_job_template)
+            _dict = parsed_job_template
     except yaml.YAMLError as exc:
         print(exc)
     except IndexError as exc:
         print(exc)
-    return JobTemplate(job_name, job_type, job_tasks, job_params)
+    return JobTemplate(job_name, job_type, _dict, job_tasks, job_params)
 
 
 def get_job_templates() -> List[JobTemplate]:
@@ -69,6 +75,13 @@ def get_job_templates() -> List[JobTemplate]:
             parsed_job_template: JobTemplate = parse_job_template(yaml_job_template_file_path)
             job_templates.append(parsed_job_template)
     return job_templates
+
+
+def get_job_template_by_type(job_type: str) -> JobTemplate or None:
+    push_job_templates = list(filter(lambda template: template.type == job_type, get_job_templates()))
+    if not push_job_templates:
+        return
+    return push_job_templates[0]
 
 
 @click.command()

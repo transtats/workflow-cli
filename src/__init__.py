@@ -20,7 +20,8 @@ from typing import Callable
 
 from src.version import version
 from src.job_templates import templates
-# from src.config import get_config, get_config_item
+from src.push_translations import push
+from src.config import get_config, get_config_item
 
 APP_VERSION = "0.1.0"
 
@@ -31,7 +32,7 @@ class AppContext(object):
     """
     def __init__(self):
         self.version = APP_VERSION
-        # self.config = get_config()
+        self.config = get_config()
 
     @staticmethod
     def print_r(result_dict):
@@ -52,3 +53,4 @@ def entry_point(ctx):
 
 entry_point.add_command(version)
 entry_point.add_command(templates)
+entry_point.add_command(push)
