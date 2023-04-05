@@ -1,0 +1,8 @@
+ToDo List
+
+- [X] Take initial code set from Transtats server repo.
+- [X] List Job templates, parse params.
+- [X] Implement click group for supporting multiple commands.
+- [X] Frame push and pull commands for executing jobs.
+- [ ] Implement Job Runner to tie up command and job execution.
+- [ ] Setup packaging options.

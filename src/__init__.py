@@ -21,6 +21,7 @@ from typing import Callable
 from src.version import version
 from src.job_templates import templates
 from src.push_translations import push
+from src.pull_translations import pull
 from src.config import get_config, get_config_item
 
 APP_VERSION = "0.1.0"
@@ -54,3 +55,4 @@ def entry_point(ctx):
 entry_point.add_command(version)
 entry_point.add_command(templates)
 entry_point.add_command(push)
+entry_point.add_command(pull)
