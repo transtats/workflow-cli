@@ -22,7 +22,8 @@ from collections import OrderedDict
 try:
     import koji
 except Exception as e:
-    print(f"koji could not be imported, details: {e}. Sync Build System job may not work.")
+    print(f"koji could not be imported, details: {e}.")
+    print(f"Sync Build System job may not work.")
 from urllib.parse import urlparse
 
 # dashboard

@@ -1,4 +1,4 @@
-# Copyright 2016 Red Hat, Inc.
+# Copyright 2023 Red Hat, Inc.
 # All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may
@@ -50,7 +50,6 @@ from .config.zanata import resources as zanata_resources
 from .config.zanata import resource_config_dict as zanata_config
 
 from src.constants import GIT_PLATFORMS, TRANSPLATFORM_ENGINES
-from src.service_layer.cache import CacheAPIManager
 from src.service_layer.decorators import set_api_auth
 
 
@@ -247,7 +246,6 @@ class RestClient(object):
     """REST Client for all Managers"""
 
     SAVE_RESPONSE = True
-    cache_manager = CacheAPIManager()
 
     def __init__(self, service):
 
@@ -290,21 +288,10 @@ class RestClient(object):
             resource = resource + "?" + ext
         elif isinstance(extension, str):
             resource = resource + "?" + extension
-        # Lets check with cache, if it's a GET request
-        if service_details.http_method == 'GET' and not kwargs.get('no_cache_api'):
-            c_content, c_json_content = self.cache_manager.get_cached_response(base_url, resource)
-            if c_content:
-                return {'content': c_content, 'json_content': c_json_content}
         # initiate service call
         rest_handle = RestHandle(
             base_url, resource, service_details.http_method, auth=service_details.auth,
             body=body, data=data, files=files, headers=headers, connection_type=None, cache=None,
             disable_ssl_certificate_validation=self.disable_ssl_certificate_validation
         )
-        api_response_dict = rest_handle.get_response_dict()
-        if api_response_dict.get('json_content') and self.SAVE_RESPONSE:
-            self.cache_manager.save_api_response(
-                base_url, resource, api_response_dict['content'],
-                api_response_dict['json_content'], *args, **kwargs
-            )
-        return api_response_dict
+        return rest_handle.get_response_dict()
