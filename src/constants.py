@@ -76,6 +76,7 @@ CALENDAR_VERBS = ('BEGIN:VEVENT', 'END:VEVENT', 'BEGIN:VTODO', 'END:VTODO')
 GIT_PLATFORMS = ('GitHub', 'GitLab', 'Pagure')
 GIT_REPO_TYPE = ('default', 'localization', TRANSPLATFORM_ENGINES[3], TRANSPLATFORM_ENGINES[1],
                  TRANSPLATFORM_ENGINES[2])
+GITHUB_USER = "transtats-bot"
 
 SYS_EMAIL_ADDR = "system@transtats.org"
 RH_EMAIL_ADDR = "transtats@redhat.com"

@@ -19,11 +19,11 @@ from requests.auth import HTTPBasicAuth
 import requests
 from collections import OrderedDict
 
-from dashboard.constants import (
+from src.constants import (
     BUILD_SYSTEMS, TRANSPLATFORM_ENGINES, BRANCH_MAPPING_KEYS, API_TOKEN_PREFIX
 )
-from dashboard.jobs_framework.mixins import LanguageFormatterMixin
-from dashboard.jobs_framework import JobCommandBase
+from src.jobs_framework.mixins import LanguageFormatterMixin
+from src.jobs_framework import JobCommandBase
 
 
 class Download(LanguageFormatterMixin, JobCommandBase):

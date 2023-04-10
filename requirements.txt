@@ -1,5 +1,7 @@
 click
+GitPython
 polib
+python-rpm-spec
 pyyaml
 requests
 six

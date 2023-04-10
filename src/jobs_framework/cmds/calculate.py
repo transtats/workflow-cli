@@ -18,7 +18,7 @@ import polib
 from subprocess import Popen, PIPE
 from collections import OrderedDict
 
-from dashboard.jobs_framework import JobCommandBase
+from src.jobs_framework import JobCommandBase
 
 
 class Calculate(JobCommandBase):

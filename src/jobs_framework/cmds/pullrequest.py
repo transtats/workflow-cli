@@ -17,12 +17,11 @@ import json
 from git import Repo
 from collections import OrderedDict
 from urllib.parse import urlparse
-from django.conf import settings
 
-from dashboard.constants import GIT_PLATFORMS, RH_EMAIL_ADDR, GIT_REPO_TYPE
-from dashboard.managers.utilities import parse_git_url, determine_git_platform
+from src.constants import GIT_PLATFORMS, RH_EMAIL_ADDR, GIT_REPO_TYPE, GITHUB_USER
+from src.utilities import parse_git_url, determine_git_platform
 
-from dashboard.jobs_framework import JobCommandBase
+from src.jobs_framework import JobCommandBase
 
 
 class Pullrequest(JobCommandBase):
@@ -44,7 +43,7 @@ class Pullrequest(JobCommandBase):
         # Prepare Merge Request
         modified_repo = Repo(input['src_tar_dir'])
 
-        git_user = settings.GITHUB_USER
+        git_user = GITHUB_USER
         if git_platform == GIT_PLATFORMS[0]:
             git_user = self.github_user
 
@@ -65,7 +64,7 @@ class Pullrequest(JobCommandBase):
         # set git push origin url
         git_api_token = ""
         if git_platform == GIT_PLATFORMS[0]:
-            git_api_token = settings.GITHUB_TOKEN
+            git_api_token = GITHUB_TOKEN
         origin_urls = list(modified_repo.remotes.origin.urls)
         if not origin_urls:
             raise Exception('Push URL cannot be blank.')

@@ -17,7 +17,7 @@ import os
 from collections import OrderedDict
 from shutil import copy2
 
-from dashboard.jobs_framework import JobCommandBase
+from src.jobs_framework import JobCommandBase
 
 
 class Copy(JobCommandBase):

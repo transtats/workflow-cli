@@ -3,21 +3,22 @@ import os
 from datetime import datetime
 from subprocess import Popen, PIPE
 
-from django.conf import settings
+from src.constants import GIT_PLATFORMS, GITHUB_USER
+from src.api_resources import APIResources
 
-from src.constants import GIT_PLATFORMS
-from dashboard.managers import BaseManager
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 
 
-class JobCommandBase(BaseManager):
+class JobCommandBase(object):
 
     double_underscore_delimiter = "__"
 
     def __init__(self):
 
         kwargs = {
-            'sandbox_path': 'dashboard/sandbox/',
+            'sandbox_path': os.path.join(BASE_DIR, 'runner', 'sandbox')
         }
+        self.api_resources = APIResources()
         super(JobCommandBase, self).__init__(**kwargs)
 
     @staticmethod
@@ -57,7 +58,7 @@ class JobCommandBase(BaseManager):
 
     @property
     def github_user(self):
-        github_user = settings.GITHUB_USER
+        github_user = GITHUB_USER
         kwargs = {}
         kwargs.update(dict(no_cache_api=True))
         github_user_details = self.api_resources.user_details(

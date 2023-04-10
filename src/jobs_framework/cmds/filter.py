@@ -17,7 +17,7 @@ import os
 import time
 from collections import OrderedDict
 
-from dashboard.jobs_framework import JobCommandBase
+from src.jobs_framework import JobCommandBase
 
 
 class Filter(JobCommandBase):

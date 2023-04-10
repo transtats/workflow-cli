@@ -5,4 +5,4 @@ ToDo List
 - [X] Implement click group for supporting multiple commands.
 - [X] Frame push and pull commands for executing jobs.
 - [ ] Implement Job Runner to tie up command and job execution.
-- [ ] Setup packaging options.
+- [ ] Enable user config. Setup packaging options.

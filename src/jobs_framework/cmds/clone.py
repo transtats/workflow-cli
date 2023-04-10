@@ -21,11 +21,9 @@ from urllib.parse import urlparse
 
 from git import Repo
 
-from django.conf import settings
-
-from dashboard.constants import GIT_PLATFORMS, TRANSPLATFORM_ENGINES, GIT_REPO_TYPE
-from dashboard.jobs_framework import JobCommandBase
-from dashboard.managers.utilities import parse_git_url, determine_git_platform
+from src.constants import GIT_PLATFORMS, TRANSPLATFORM_ENGINES, GIT_REPO_TYPE, GITHUB_USER
+from src.jobs_framework import JobCommandBase
+from src.utilities import parse_git_url, determine_git_platform
 
 
 class Clone(JobCommandBase):
@@ -46,7 +44,7 @@ class Clone(JobCommandBase):
         kwargs = {}
         kwargs.update(dict(no_cache_api=True))
 
-        git_user = settings.GITHUB_USER
+        git_user = GITHUB_USER
         if git_platform == GIT_PLATFORMS[0]:
             git_user = self.github_user
 
@@ -65,7 +63,7 @@ class Clone(JobCommandBase):
         kwargs = {}
         kwargs.update(dict(no_cache_api=True))
 
-        git_user = settings.GITHUB_USER
+        git_user = GITHUB_USER
         if git_platform == GIT_PLATFORMS[0]:
             git_user = self.github_user
 

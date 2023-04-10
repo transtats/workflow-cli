@@ -17,7 +17,7 @@ import os
 from collections import OrderedDict
 from subprocess import Popen, PIPE
 
-from dashboard.jobs_framework import JobCommandBase
+from src.jobs_framework import JobCommandBase
 
 
 class Generate(JobCommandBase):

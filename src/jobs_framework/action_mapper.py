@@ -1,4 +1,4 @@
-# Copyright 2018 Red Hat, Inc.
+# Copyright 2023 Red Hat, Inc.
 # All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may
@@ -37,12 +37,11 @@ from src.jobs_framework.cmds.load import Load
 from src.jobs_framework.cmds.pullrequest import Pullrequest
 from src.jobs_framework.cmds.unpack import Unpack
 from src.jobs_framework.cmds.upload import Upload
-from dashboard.jobs_framework import BaseManager
 
 __all__ = ['ActionMapper']
 
 
-class ActionMapper(BaseManager):
+class ActionMapper(object):
     """YML Parsed Objects to Actions Mapper"""
     COMMANDS = {
         'GET': Get,                     # Fetch information
@@ -259,4 +258,4 @@ class ActionMapper(BaseManager):
             if self.cleanup_resources.get('download_dir'):
                 rmtree(self.cleanup_resources.get('download_dir'), ignore_errors=True)
         except OSError as e:
-            self.app_logger('ERROR', "Failed to clean sandbox! Due to %s" % e)
+            print(f"ERROR: Failed to clean sandbox! Due to {e}")
