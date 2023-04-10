@@ -15,6 +15,7 @@
 import os
 from abc import ABC
 
+from src.config import get_config, get_config_item
 from src.jobs_framework.ds import TaskList
 from src.jobs_framework.action_mapper import ActionMapper
 from src.jobs_framework import BASE_DIR
@@ -25,6 +26,7 @@ class JobRunner(ABC):
 
     def __init__(self) -> None:
         self.tasks_ds: TaskList = TaskList()
+        self.config = get_config()
         self.job_base_dir: str = \
             os.path.join(BASE_DIR, "jobs_framework", "runner", "sandbox")
 
@@ -80,9 +82,10 @@ class JobRunnerWeblate(JobRunner):
     Job Runner with Weblate Configurations
     """
     def bootstrap(self, initialize_params: dict) -> None:
-        initialize_params = initialize_params
         print("\nBootstrapping the Job Runner")
         print(f"\n {self.job_base_dir}")
+        api_token = get_config_item(self.config, "server", "token")
+        print(f"Token coming from config {api_token}")
         print(initialize_params)
 
 

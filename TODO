@@ -4,5 +4,6 @@ ToDo List
 - [X] List Job templates, parse params.
 - [X] Implement click group for supporting multiple commands.
 - [X] Frame push and pull commands for executing jobs.
+- [X] Enable user config.
 - [ ] Implement Job Runner to tie up command and job execution.
-- [ ] Enable user config. Setup packaging options.
+- [ ] Setup packaging options.
