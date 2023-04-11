@@ -5,5 +5,7 @@ ToDo List
 - [X] Implement click group for supporting multiple commands.
 - [X] Frame push and pull commands for executing jobs.
 - [X] Enable user config.
-- [ ] Implement Job Runner to tie up command and job execution.
+- [X] Implement Job Runner to tie up command and job execution.
+- [ ] Push Jobs: Weblate to Phrase and Transifex to Phrase
+- [ ] Pull Jobs: Vice Versa
 - [ ] Setup packaging options.
