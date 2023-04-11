@@ -14,7 +14,7 @@
 # under the License.
 import os
 import shutil
-from abc import ABC
+from abc import abstractmethod
 
 from src.config import get_config, get_config_item
 from src.jobs_framework.ds import TaskList
@@ -23,18 +23,15 @@ from src.jobs_framework.action_mapper import ActionMapper
 from src.jobs_framework import BASE_DIR
 
 
-class JobRunner(ABC):
+class JobRunner:
     action_mapper = None
 
     def __init__(self) -> None:
         self.tasks_ds: TaskList = TaskList()
         self.config = get_config()
         self.job_base_dir: str = \
-            os.path.join(BASE_DIR, "jobs_framework", "runner", "sandbox")
+            os.path.join(BASE_DIR, "runner", "sandbox")
         self.log_file = os.path.join(self.job_base_dir, "job-runner.log")
-
-    def bootstrap(self, initialize_params: dict) -> None:
-        raise NotImplementedError()
 
     def __create_action_mapper(self) -> None:
         self.action_mapper = ActionMapper(
@@ -84,6 +81,10 @@ class JobRunner(ABC):
         print("Bootstrap is done. Executing Job ..")
         print(f"See logs here: {self.log_file}")
         print(os.linesep)
+
+    @abstractmethod
+    def bootstrap(self, initialize_params: dict) -> None:
+        raise NotImplementedError()
 
 
 class JobRunnerPush(JobRunner):
@@ -161,6 +162,7 @@ class JobRunnerPush(JobRunner):
                 os.unlink(file_path)
 
     def bootstrap(self, initialize_params: dict) -> None:
+        self._wipe_workspace()
         yml_job = YMLJobParser(initialize_params['template_with_inputs'])
         self._set_data_from_yml_job(yml_job)
         self._set_data_from_config()

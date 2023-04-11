@@ -6,7 +6,7 @@ from subprocess import Popen, PIPE
 from src.constants import GIT_PLATFORMS, GITHUB_USER
 from src.api_resources import APIResources
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+BASE_DIR = os.path.dirname(os.path.realpath(__file__))
 
 
 class JobCommandBase(object):
