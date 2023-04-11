@@ -22,7 +22,7 @@ class JobTemplate:
         return f"Job template '{self.name}' is of type '{self.type}' and has '{tasks}' " \
                f"tasks with '{params}' params."
 
-    def get_dict_form(self):
+    def get_dict_form(self) -> dict:
         return self._dict
 
 

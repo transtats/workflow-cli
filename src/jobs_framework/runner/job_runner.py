@@ -13,10 +13,12 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 import os
+import shutil
 from abc import ABC
 
 from src.config import get_config, get_config_item
 from src.jobs_framework.ds import TaskList
+from src.jobs_framework.parser import YMLJobParser
 from src.jobs_framework.action_mapper import ActionMapper
 from src.jobs_framework import BASE_DIR
 
@@ -29,6 +31,7 @@ class JobRunner(ABC):
         self.config = get_config()
         self.job_base_dir: str = \
             os.path.join(BASE_DIR, "jobs_framework", "runner", "sandbox")
+        self.log_file = os.path.join(self.job_base_dir, "job-runner.log")
 
     def bootstrap(self, initialize_params: dict) -> None:
         raise NotImplementedError()
@@ -77,21 +80,97 @@ class JobRunner(ABC):
             raise Exception(e)
 
 
-class JobRunnerWeblate(JobRunner):
+class JobRunnerPush(JobRunner):
     """
-    Job Runner with Weblate Configurations
+    Job Runner for Push Jobs
     """
+
+    def _set_data_from_config(self):
+        pkg_name = get_config_item(self.config, "package", "name")
+        if pkg_name != self.package:
+            print(f"Input package differs from config. Please check!")
+            exit(-1)
+        self.upstream_repo_url = get_config_item(self.config, "package", "upstream_repo_url")
+        self.upstream_l10n_url = get_config_item(self.config, "package", "upstream_l10n_url")
+        self.trans_file_ext = get_config_item(self.config, "package", "trans_file_ext")
+        self.pkg_upstream_name = get_config_item(self.config, "package", "upstream_name")
+        self.pkg_downstream_name = get_config_item(self.config, "package", "downstream_name")
+
+        self.pkg_tp_engine = get_config_item(self.config, "source", "engine")
+        self.pkg_tp_auth_usr = get_config_item(self.config, "source", "auth_usr")
+        self.pkg_tp_auth_token = get_config_item(self.config, "source", "auth_token")
+        self.pkg_tp_url = get_config_item(self.config, "source", "url")
+
+        self.pkg_ci_engine = get_config_item(self.config, "target", "engine")
+        self.pkg_ci_url = get_config_item(self.config, "target", "url")
+        self.pkg_ci_auth_usr = get_config_item(self.config, "target", "auth_usr")
+        self.pkg_ci_auth_token = get_config_item(self.config, "target", "auth_pass")
+
+    def _set_data_from_yml_job(self, yml_job: YMLJobParser):
+        self.yml_job_name = yml_job.job_name
+        self.job_type = yml_job.job_type
+        self.package = yml_job.package
+        self.release = yml_job.release
+        self.buildsys = yml_job.buildsys
+        self.tag = ""
+        if isinstance(yml_job.tags, list) and len(yml_job.tags) > 0:
+            self.tag = yml_job.tags[0]
+        elif isinstance(yml_job.tags, str):
+            self.tag = yml_job.tags
+
+    def _set_job_params(self, param_value_pair: dict):
+        for param, value in param_value_pair.items():
+            setattr(self, param, value)
+            if param == "project_uid":
+                setattr(self, "ci_project_uid", value)
+            if param == "target_langs":
+                if isinstance(value, (list, tuple)):
+                    setattr(self, "ci_target_langs", value)
+                elif isinstance(value, str) and "," in value:
+                    setattr(self, "ci_target_langs", value.split(","))
+                    setattr(self, param, value.split(","))
+
+    def _set_tasks(self, yml_job: YMLJobParser):
+        tasks = yml_job.tasks
+        for task in tasks:
+            self.tasks_ds.add_task(task)
+
+    def _set_log_file(self):
+        if self.package and self.job_type:
+            self.log_file = os.path.join(
+                self.job_base_dir, f"job-{self.package}-{self.job_type}.log"
+            )
+
+    def _wipe_workspace(self):
+        """This makes sandbox clean for a new job to run"""
+        # remove log file if exists
+        if os.path.exists(self.log_file):
+            os.remove(self.log_file)
+        for file in os.listdir(self.job_base_dir):
+            file_path = os.path.join(self.job_base_dir, file)
+            if os.path.isdir(file_path):
+                shutil.rmtree(file_path)
+            elif os.path.isfile(file_path) and not file_path.endswith('.py') \
+                    and '.log.' not in file_path:
+                os.unlink(file_path)
+
     def bootstrap(self, initialize_params: dict) -> None:
-        print("\nBootstrapping the Job Runner")
-        print(f"\n {self.job_base_dir}")
-        api_token = get_config_item(self.config, "server", "token")
-        print(f"Token coming from config {api_token}")
-        print(initialize_params)
+        self._wipe_workspace()
+        yml_job = YMLJobParser(initialize_params['template_with_inputs'])
+        self._set_data_from_yml_job(yml_job)
+        self._set_data_from_config()
+        self._set_job_params(initialize_params['required_params'])
+        self._set_tasks(yml_job)
+        self._set_log_file()
+
+    def inform_user(self):
+        print("Bootstrap is done. Executing Job ..")
+        print(f"Logs: {self.log_file}")
 
 
-class JobRunnerTransifex(JobRunner):
+class JobRunnerPull(JobRunner):
     """
-    Job Runner with Transifex Configurations
+    Job Runner for Pull Jobs
     """
 
     def bootstrap(self, initialize_params: dict) -> None:

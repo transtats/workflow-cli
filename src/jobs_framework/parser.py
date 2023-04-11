@@ -1,4 +1,4 @@
-# Copyright 2018 Red Hat, Inc.
+# Copyright 2023 Red Hat, Inc.
 # All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may
@@ -43,19 +43,9 @@ class YMLPreProcessor(object):
 
 class YMLJobParser(object):
     """Parse YML and build objects"""
-    test_yml_path = 'dashboard/tests/testdata/job-templates/stringchange.yml'
 
-    def __init__(self, yml_stream=None):
-
-        stream = yml_stream if yml_stream else open(self.test_yml_path)
-        try:
-            parsed_data = load(stream, Loader=FullLoader)
-        except YAMLError as exc:
-            # log error
-            pass
-        else:
-            if isinstance(parsed_data, dict):
-                self.data = parsed_data.get('job', {})
+    def __init__(self, yml_dict=None):
+        self.data = yml_dict.get('job', {})
 
     @property
     def buildsys(self):

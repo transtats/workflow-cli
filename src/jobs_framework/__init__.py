@@ -15,11 +15,8 @@ class JobCommandBase(object):
 
     def __init__(self):
 
-        kwargs = {
-            'sandbox_path': os.path.join(BASE_DIR, 'runner', 'sandbox')
-        }
+        self.sandbox_path = os.path.join(BASE_DIR, 'runner', 'sandbox')
         self.api_resources = APIResources()
-        super(JobCommandBase, self).__init__(**kwargs)
 
     @staticmethod
     def _format_log_text(delimiter, text, text_prefix):
