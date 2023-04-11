@@ -12,9 +12,31 @@
 # WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 # License for the specific language governing permissions and limitations
 # under the License.
-
-# dashboard
+import requests
+from src.config import get_config, get_config_item
 from src.constants import TRANSPLATFORM_ENGINES, API_TOKEN_PREFIX, GIT_PLATFORMS
+from src.service_layer.config.memsource import \
+    resources as memsource_resources, media_types as memsource_media_types
+
+GITHUB_TOKEN = get_config_item(get_config(), "github", "token")
+
+
+def request_phrase_token(phrase_user: str, phrase_pass: str):
+    config = memsource_resources.get('request_token')
+    payload, headers = {}, {}
+    payload.update(dict(userName=phrase_user))
+    payload.update(dict(password=phrase_pass))
+    headers['Accept'] = memsource_media_types[0]
+    headers['Content-Type'] = memsource_media_types[0]
+
+    phrase_api_url = get_config_item(get_config(), "target", "url")
+    auth_api_url = phrase_api_url + "/api2/v1" + config.mount_point
+    response = requests.post(url=auth_api_url, json=payload, headers=headers)
+    if not response.ok:
+        print("Please ensure Phrase credentials are correct in the config.")
+        exit(-1)
+    response_json = response.json()
+    return response_json.get("token", "")
 
 
 def set_api_auth():
@@ -29,6 +51,7 @@ def set_api_auth():
             if rest_client.service == TRANSPLATFORM_ENGINES[4]:
                 # Memsource needs token in Authorization header.
                 memsource_auth_user = API_TOKEN_PREFIX.get(rest_client.service) or kwargs['auth_user']
+                latest_token = request_phrase_token(kwargs['auth_user'], kwargs['auth_token'])
                 kwargs['headers']['Authorization'] = f"{memsource_auth_user} {latest_token}"
             if kwargs.get('auth_user') and kwargs.get('auth_token'):
                 auth_tuple = ()

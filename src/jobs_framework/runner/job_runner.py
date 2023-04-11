@@ -79,6 +79,12 @@ class JobRunner(ABC):
             setattr(self, 'exception', e)
             raise Exception(e)
 
+    def inform_user(self):
+        print(os.linesep)
+        print("Bootstrap is done. Executing Job ..")
+        print(f"See logs here: {self.log_file}")
+        print(os.linesep)
+
 
 class JobRunnerPush(JobRunner):
     """
@@ -155,17 +161,12 @@ class JobRunnerPush(JobRunner):
                 os.unlink(file_path)
 
     def bootstrap(self, initialize_params: dict) -> None:
-        self._wipe_workspace()
         yml_job = YMLJobParser(initialize_params['template_with_inputs'])
         self._set_data_from_yml_job(yml_job)
         self._set_data_from_config()
         self._set_job_params(initialize_params['required_params'])
         self._set_tasks(yml_job)
         self._set_log_file()
-
-    def inform_user(self):
-        print("Bootstrap is done. Executing Job ..")
-        print(f"Logs: {self.log_file}")
 
 
 class JobRunnerPull(JobRunner):
