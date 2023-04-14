@@ -1,6 +1,6 @@
-### Commands
+## Commands
 
-#### Push
+### Push
 
 ```
 ./transtats push
@@ -24,4 +24,24 @@
     --prepend-branch true
 ```
 
-#### Pull
+### Pull
+
+```
+./transtats pull
+    --package-name anaconda
+    --project-uid rFOGucI6IwH4fZPijXXXXX
+    --target-langs ja,zh_CN
+    --repo-type weblate
+    --repo-branch main
+    --workflow-step translations
+```
+
+```
+./transtats pull
+    --package-name foreman-2
+    --project-uid GVajCPA7jOE9cloLuXXXXX
+    --target-langs ja,zh_CN
+    --repo-type foreman_discoverypot
+    --repo-branch main
+    --workflow-step translations
+```

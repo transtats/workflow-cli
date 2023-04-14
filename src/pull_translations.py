@@ -1,6 +1,7 @@
 import click
 import ast
 from src.job_templates import get_job_template_by_type
+from src.jobs_framework.runner.job_runner import JobRunnerPull
 
 
 def _fill_job_template_with_user_inputs(push_job_template, required_params: dict) -> dict:
@@ -14,6 +15,19 @@ def _fill_job_template_with_user_inputs(push_job_template, required_params: dict
             push_job_template_str = \
                 push_job_template_str.replace(param, required_params[param.lower()])
     return ast.literal_eval(push_job_template_str)
+
+
+def _run_command(required_params: dict, push_job_template_with_inputs: dict):
+    job_runner = JobRunnerPull()
+    initialize_params: dict = {
+        "required_params": required_params,
+        "template_with_inputs": push_job_template_with_inputs
+    }
+    job_runner.bootstrap(initialize_params)
+    job_runner.set_actions()
+    job_runner.inform_user()
+    job_runner.execute_tasks()
+    job_runner.conclude_user()
 
 
 @click.command()
@@ -39,5 +53,4 @@ def pull(app_context, package_name, project_uid, target_langs, workflow_step, re
     pull_job_template = get_job_template_by_type(job_type)
     pull_job_template_with_inputs = \
         _fill_job_template_with_user_inputs(pull_job_template, required_params)
-    print("\nYour job is getting ready to be executed:")
-    print(pull_job_template_with_inputs)
+    _run_command(required_params, pull_job_template_with_inputs)

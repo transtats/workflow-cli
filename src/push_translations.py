@@ -27,6 +27,7 @@ def _run_command(required_params: dict, push_job_template_with_inputs: dict):
     job_runner.set_actions()
     job_runner.inform_user()
     job_runner.execute_tasks()
+    job_runner.conclude_user()
 
 
 @click.command()

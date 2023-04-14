@@ -6,6 +6,6 @@ ToDo List
 - [X] Frame push and pull commands for executing jobs.
 - [X] Enable user config.
 - [X] Implement Job Runner to tie up command and job execution.
-- [ ] Push Jobs: Weblate to Phrase and Transifex to Phrase
-- [ ] Pull Jobs: Vice Versa
+- [X] Push Jobs: Weblate to Phrase and Transifex to Phrase
+- [X] Pull Jobs: Vice Versa
 - [ ] Setup packaging options.

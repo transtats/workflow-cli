@@ -15,3 +15,9 @@ Commands:
   templates  List available job templates.
   version    Display the current version.
 ```
+
+Place [transtats.config](https://github.com/transtats/workflow-cli/tree/devel/data/config-example) at `~/.config/` directory before running push/pull.
+
+See `push` and `pull` command examples [here](https://github.com/transtats/workflow-cli/blob/devel/data/cmd_examples.md).
+
+Developer notes are [here](https://github.com/transtats/workflow-cli/blob/devel/DEVELOP.md).

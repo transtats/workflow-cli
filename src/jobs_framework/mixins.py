@@ -33,7 +33,7 @@ class LanguageFormatterMixin(object):
             target_langs = langs.split(self.comma_delimiter) \
                 if self.comma_delimiter in langs \
                 else [langs]
-        return target_langs
+        return list(map(lambda x: x.lower(), target_langs))
 
     def format_locale(self, locale, alias_zh=False):
 

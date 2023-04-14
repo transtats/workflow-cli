@@ -196,6 +196,28 @@ class Download(LanguageFormatterMixin, JobCommandBase):
                 ))
         return {'platform_pot_path': platform_pot_path}, {task_subject: task_log}
 
+    def ci_lang_job_map(self, project_uid: str, phrase_project_jobs: list, workflow_step='default'):
+        """
+        Get CI Platform Target Language: Job UID map
+        """
+        ci_lang_job_map = {}
+        for job_detail in phrase_project_jobs:
+            if job_detail.get('targetLang') and job_detail.get('uid') and job_detail.get('filename'):
+                if not job_detail.get('workflowStep'):
+                    ci_lang_job_map.update(
+                        {job_detail['uid']: (job_detail['targetLang'], job_detail['filename'])}
+                    )
+                elif workflow_step == 'default' and job_detail.get('workflowLevel') == 1:
+                    ci_lang_job_map.update(
+                        {job_detail['uid']: (job_detail['targetLang'], job_detail['filename'])}
+                    )
+                elif job_detail.get('workflowStep') and \
+                        job_detail.get('workflowStep').get('name') == workflow_step:
+                    ci_lang_job_map.update(
+                        {job_detail['uid']: (job_detail['targetLang'], job_detail['filename'])}
+                    )
+        return ci_lang_job_map
+
     def pull_translations(self, input, kwargs):
         """
         Download translations from a Platform
@@ -222,6 +244,16 @@ class Download(LanguageFormatterMixin, JobCommandBase):
         platform_project = input.get('ci_project_uid') or input.get('package')
         if kwargs.get('target_langs'):
             target_langs = self.format_target_langs(langs=kwargs['target_langs'])
+
+        if input.get('ci_project_uid') and not ci_lang_job_map:
+            api_kwargs = {
+                'auth_user': input['pkg_ci_auth_usr'], 'auth_token': input['pkg_ci_auth_token']
+            }
+            project_details_api_resp = self.api_resources.fetch_project_details(
+                input['pkg_ci_engine'], input['pkg_ci_url'], input['ci_project_uid'], **api_kwargs
+            )
+            phrase_project_jobs = project_details_api_resp['project_jobs']
+            ci_lang_job_map = self.ci_lang_job_map(input['ci_project_uid'], phrase_project_jobs)
 
         if input.get('ci_project_uid') and \
                 not set(target_langs).issubset({i[0] for i in ci_lang_job_map.values()}):
