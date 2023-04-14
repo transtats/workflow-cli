@@ -41,7 +41,7 @@
     --package-name foreman-2
     --project-uid GVajCPA7jOE9cloLuXXXXX
     --target-langs ja,zh_CN
-    --repo-type foreman_discoverypot
-    --repo-branch main
+    --repo-type transifex
+    --repo-branch foreman_discoverypot
     --workflow-step translations
 ```
