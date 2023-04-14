@@ -24,6 +24,7 @@ setup(
     url="https://transtats.org",
     license="Apache License 2.0",
     install_requires=REQUIRE,
+    test_suite="tests.twcli_test_suit",
     scripts=["transtats"],
     entry_points='''
         [console_scripts]
