@@ -49,8 +49,8 @@ from .config.weblate import resource_config_dict as weblate_config
 from .config.zanata import resources as zanata_resources
 from .config.zanata import resource_config_dict as zanata_config
 
-from src.constants import GIT_PLATFORMS, TRANSPLATFORM_ENGINES
-from src.service_layer.decorators import set_api_auth
+from twcli.constants import GIT_PLATFORMS, TRANSPLATFORM_ENGINES
+from twcli.service_layer.decorators import set_api_auth
 
 
 NO_CERT_VALIDATION = True

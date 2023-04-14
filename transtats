@@ -15,6 +15,6 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-from src import entry_point
+from twcli import entry_point
 
 entry_point()

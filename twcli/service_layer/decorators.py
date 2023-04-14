@@ -13,9 +13,9 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 import requests
-from src.config import get_config, get_config_item
-from src.constants import TRANSPLATFORM_ENGINES, API_TOKEN_PREFIX, GIT_PLATFORMS
-from src.service_layer.config.memsource import \
+from twcli.config import get_config, get_config_item
+from twcli.constants import TRANSPLATFORM_ENGINES, API_TOKEN_PREFIX, GIT_PLATFORMS
+from twcli.service_layer.config.memsource import \
     resources as memsource_resources, media_types as memsource_media_types
 
 GITHUB_TOKEN = get_config_item(get_config(), "github", "token")

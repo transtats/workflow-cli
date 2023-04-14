@@ -19,11 +19,11 @@ from requests.auth import HTTPBasicAuth
 import requests
 from collections import OrderedDict
 
-from src.constants import (
+from twcli.constants import (
     BUILD_SYSTEMS, TRANSPLATFORM_ENGINES, BRANCH_MAPPING_KEYS, API_TOKEN_PREFIX
 )
-from src.jobs_framework.mixins import LanguageFormatterMixin
-from src.jobs_framework import JobCommandBase
+from twcli.jobs_framework.mixins import LanguageFormatterMixin
+from twcli.jobs_framework import JobCommandBase
 
 
 class Download(LanguageFormatterMixin, JobCommandBase):
@@ -64,7 +64,7 @@ class Download(LanguageFormatterMixin, JobCommandBase):
             build_id = latest_build.get('id', 0)
             build_info = self.api_resources.get_build(hub_url=input['hub_url'], build_id=build_id)
             rpms = self.api_resources.list_RPMs(hub_url=input['hub_url'], build_id=build_id)
-            src_rpm = [rpm for rpm in rpms if rpm.get('arch') == 'src'][0]
+            src_rpm = [rpm for rpm in rpms if rpm.get('arch') == 'twcli'][0]
             srpm_download_url = os.path.join(
                 self.api_resources.get_path_info(build=build_info),
                 self.api_resources.get_path_info(srpm=src_rpm)

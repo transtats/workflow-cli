@@ -13,7 +13,7 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-from src.service_layer.restclient import RestClient
+from twcli.service_layer.restclient import RestClient
 
 
 def call_service(service_name):

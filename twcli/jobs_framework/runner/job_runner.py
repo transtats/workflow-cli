@@ -16,11 +16,11 @@ import os
 import shutil
 from abc import abstractmethod
 
-from src.config import get_config, get_config_item
-from src.jobs_framework.ds import TaskList
-from src.jobs_framework.parser import YMLJobParser
-from src.jobs_framework.action_mapper import ActionMapper
-from src.jobs_framework import BASE_DIR
+from twcli.config import get_config, get_config_item
+from twcli.jobs_framework.ds import TaskList
+from twcli.jobs_framework.parser import YMLJobParser
+from twcli.jobs_framework.action_mapper import ActionMapper
+from twcli.jobs_framework import BASE_DIR
 
 
 class JobRunner:

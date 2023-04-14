@@ -17,9 +17,9 @@ import re
 import os
 from collections import OrderedDict
 
-from src.constants import TRANSPLATFORM_ENGINES
-from src.jobs_framework.mixins import JobHooksMixin
-from src.jobs_framework import JobCommandBase
+from twcli.constants import TRANSPLATFORM_ENGINES
+from twcli.jobs_framework.mixins import JobHooksMixin
+from twcli.jobs_framework import JobCommandBase
 
 
 class Upload(JobHooksMixin, JobCommandBase):

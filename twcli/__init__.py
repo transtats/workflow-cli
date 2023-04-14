@@ -18,11 +18,11 @@ import click
 
 from typing import Callable
 
-from src.version import version
-from src.job_templates import templates
-from src.push_translations import push
-from src.pull_translations import pull
-from src.config import get_config, get_config_item
+from twcli.version import version
+from twcli.job_templates import templates
+from twcli.push_translations import push
+from twcli.pull_translations import pull
+from twcli.config import get_config, get_config_item
 
 APP_VERSION = "0.1.0"
 

@@ -17,8 +17,8 @@ import os
 from pyrpm.spec import Spec
 from collections import OrderedDict
 
-from src.converters.specfile import RpmSpecFile
-from src.jobs_framework import JobCommandBase
+from twcli.converters.specfile import RpmSpecFile
+from twcli.jobs_framework import JobCommandBase
 
 
 class Load(JobCommandBase):

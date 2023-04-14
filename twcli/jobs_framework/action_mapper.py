@@ -25,18 +25,18 @@ from inspect import getmembers, isfunction
 from shutil import rmtree
 
 # dashboard
-from src.jobs_framework.cmds.apply import Apply
-from src.jobs_framework.cmds.calculate import Calculate
-from src.jobs_framework.cmds.copy import Copy
-from src.jobs_framework.cmds.clone import Clone
-from src.jobs_framework.cmds.download import Download
-from src.jobs_framework.cmds.filter import Filter
-from src.jobs_framework.cmds.generate import Generate
-from src.jobs_framework.cmds.get import Get
-from src.jobs_framework.cmds.load import Load
-from src.jobs_framework.cmds.pullrequest import Pullrequest
-from src.jobs_framework.cmds.unpack import Unpack
-from src.jobs_framework.cmds.upload import Upload
+from twcli.jobs_framework.cmds.apply import Apply
+from twcli.jobs_framework.cmds.calculate import Calculate
+from twcli.jobs_framework.cmds.copy import Copy
+from twcli.jobs_framework.cmds.clone import Clone
+from twcli.jobs_framework.cmds.download import Download
+from twcli.jobs_framework.cmds.filter import Filter
+from twcli.jobs_framework.cmds.generate import Generate
+from twcli.jobs_framework.cmds.get import Get
+from twcli.jobs_framework.cmds.load import Load
+from twcli.jobs_framework.cmds.pullrequest import Pullrequest
+from twcli.jobs_framework.cmds.unpack import Unpack
+from twcli.jobs_framework.cmds.upload import Upload
 
 __all__ = ['ActionMapper']
 

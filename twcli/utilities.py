@@ -21,7 +21,7 @@ from collections import OrderedDict
 from urllib.parse import urlparse
 
 # dashboard
-from src.constants import (TRANSPLATFORM_ENGINES, CALENDAR_VERBS, GIT_PLATFORMS)
+from twcli.constants import (TRANSPLATFORM_ENGINES, CALENDAR_VERBS, GIT_PLATFORMS)
 
 
 __all__ = ['parse_project_details_json', 'parse_ical_file', 'parse_git_url', 'determine_git_platform',

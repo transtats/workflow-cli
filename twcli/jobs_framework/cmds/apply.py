@@ -19,7 +19,7 @@ from shutil import copy2
 from subprocess import Popen, PIPE
 from collections import OrderedDict
 
-from src.jobs_framework import JobCommandBase
+from twcli.jobs_framework import JobCommandBase
 
 
 class Apply(JobCommandBase):

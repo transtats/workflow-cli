@@ -3,8 +3,8 @@ import os
 from datetime import datetime
 from subprocess import Popen, PIPE
 
-from src.constants import GIT_PLATFORMS, GITHUB_USER
-from src.api_resources import APIResources
+from twcli.constants import GIT_PLATFORMS, GITHUB_USER
+from twcli.api_resources import APIResources
 
 BASE_DIR = os.path.dirname(os.path.realpath(__file__))
 

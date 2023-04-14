@@ -21,9 +21,9 @@ from urllib.parse import urlparse
 
 from git import Repo
 
-from src.constants import GIT_PLATFORMS, TRANSPLATFORM_ENGINES, GIT_REPO_TYPE, GITHUB_USER
-from src.jobs_framework import JobCommandBase
-from src.utilities import parse_git_url, determine_git_platform
+from twcli.constants import GIT_PLATFORMS, TRANSPLATFORM_ENGINES, GIT_REPO_TYPE, GITHUB_USER
+from twcli.jobs_framework import JobCommandBase
+from twcli.utilities import parse_git_url, determine_git_platform
 
 
 class Clone(JobCommandBase):

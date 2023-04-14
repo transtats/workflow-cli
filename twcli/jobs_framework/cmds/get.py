@@ -15,7 +15,7 @@
 
 from collections import OrderedDict
 
-from src.jobs_framework import JobCommandBase
+from twcli.jobs_framework import JobCommandBase
 
 
 class Get(JobCommandBase):

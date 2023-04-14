@@ -18,10 +18,10 @@ from git import Repo
 from collections import OrderedDict
 from urllib.parse import urlparse
 
-from src.constants import GIT_PLATFORMS, RH_EMAIL_ADDR, GIT_REPO_TYPE, GITHUB_USER
-from src.utilities import parse_git_url, determine_git_platform
+from twcli.constants import GIT_PLATFORMS, RH_EMAIL_ADDR, GIT_REPO_TYPE, GITHUB_USER
+from twcli.utilities import parse_git_url, determine_git_platform
 
-from src.jobs_framework import JobCommandBase
+from twcli.jobs_framework import JobCommandBase
 
 
 class Pullrequest(JobCommandBase):

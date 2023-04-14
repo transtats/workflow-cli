@@ -1,7 +1,7 @@
 import click
 import ast
-from src.job_templates import JobTemplate, get_job_template_by_type
-from src.jobs_framework.runner.job_runner import JobRunnerPush
+from twcli.job_templates import get_job_template_by_type
+from twcli.jobs_framework.runner.job_runner import JobRunnerPull
 
 
 def _fill_job_template_with_user_inputs(push_job_template, required_params: dict) -> dict:
@@ -18,7 +18,7 @@ def _fill_job_template_with_user_inputs(push_job_template, required_params: dict
 
 
 def _run_command(required_params: dict, push_job_template_with_inputs: dict):
-    job_runner = JobRunnerPush()
+    job_runner = JobRunnerPull()
     initialize_params: dict = {
         "required_params": required_params,
         "template_with_inputs": push_job_template_with_inputs
@@ -34,24 +34,23 @@ def _run_command(required_params: dict, push_job_template_with_inputs: dict):
 @click.option("--package-name", envvar='PACKAGE_NAME', help="Package Name")
 @click.option("--project-uid", envvar='PROJECT_UID', help="Phrase Project UID")
 @click.option("--target-langs", envvar='TARGET_LANGS', help="Target Languages")
+@click.option("--workflow-step", envvar='WORKFLOW_STEP', help="Workflow Step")
 @click.option("--repo-type", envvar='REPO_TYPE', help="Repository Type")
 @click.option("--repo-branch", envvar='REPO_BRANCH', help="Repository Branch")
-@click.option("--update", is_flag=False, help="Overwrite exiting Phrase Jobs")
-@click.option("--prepend-branch", is_flag=False, help="Prepend branch to filename")
 @click.pass_obj
-def push(app_context, package_name, project_uid, target_langs, repo_type, update, repo_branch, prepend_branch):
-    """Download translations from a Platform (Weblate, Transifex) and push to Phrase (Memsource)"""
-    job_type: str = 'dpushtrans'
-    required_params: dict = {
+def pull(app_context, package_name, project_uid, target_langs, workflow_step, repo_type, repo_branch):
+    """Download translations from Phrase (Memsource) and submit back to a Platform (Weblate, Transifex)"""
+    job_type: str = 'pulltrans'
+    required_params = {
         'package_name': package_name,
         'project_uid': project_uid,
         'target_langs': target_langs,
+        'workflow_step': workflow_step,
         'repo_type': repo_type,
-        'update': update,
-        'repo_branch': repo_branch,
-        'prepend_branch': prepend_branch
+        'repo_branch': repo_branch
     }
-    push_job_template: JobTemplate = get_job_template_by_type(job_type)
-    push_job_template_with_inputs: dict = \
-        _fill_job_template_with_user_inputs(push_job_template, required_params)
-    _run_command(required_params, push_job_template_with_inputs)
+
+    pull_job_template = get_job_template_by_type(job_type)
+    pull_job_template_with_inputs = \
+        _fill_job_template_with_user_inputs(pull_job_template, required_params)
+    _run_command(required_params, pull_job_template_with_inputs)

@@ -8,4 +8,5 @@ ToDo List
 - [X] Implement Job Runner to tie up command and job execution.
 - [X] Push Jobs: Weblate to Phrase and Transifex to Phrase
 - [X] Pull Jobs: Vice Versa
-- [ ] Setup packaging options.
+- [X] Setup packaging options.
+- [ ] Developer notes.

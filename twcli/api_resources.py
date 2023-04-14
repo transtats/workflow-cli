@@ -27,11 +27,11 @@ except Exception as e:
 from urllib.parse import urlparse
 
 # dashboard
-from src.constants import (
+from twcli.constants import (
     GIT_PLATFORMS, TRANSPLATFORM_ENGINES, BUILD_SYSTEMS, RELSTREAM_SLUGS
 )
-from src.converters.xml2dict import parse
-from src.service_layer import call_service
+from twcli.converters.xml2dict import parse
+from twcli.service_layer import call_service
 
 
 __all__ = ['APIResources']
