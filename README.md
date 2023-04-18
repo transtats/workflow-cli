@@ -17,6 +17,7 @@ Commands:
 ```
 
 Place [transtats.config](https://github.com/transtats/workflow-cli/tree/devel/data/config-example) at `~/.config/` directory before running push/pull.
+<br>For custom path set `TRANSTATS_CONFIG_PATH` environment variable. 
 
 See `push` and `pull` command examples [here](https://github.com/transtats/workflow-cli/blob/devel/data/cmd_examples.md).
 
