@@ -14,6 +14,7 @@
 # under the License.
 import os
 import shutil
+import yaml
 from abc import abstractmethod
 
 from twcli.config import get_config, get_config_item
@@ -97,15 +98,25 @@ class JobRunnerPush(JobRunner):
     Job Runner for Push Jobs
     """
 
+    def _set_package_info(self):
+        packages_yml_file_path = get_config_item(get_config(), "packages", "yml_file_path")
+        packages: list = []
+        with open(packages_yml_file_path, "r") as stream:
+            try:
+                packages = yaml.safe_load(stream)
+            except yaml.YAMLError as exc:
+                print(exc)
+        if not packages:
+            return
+        for package in packages:
+            for package_name, package_values in package.items():
+                if package_name == self.package:
+                    for package_value in package_values:
+                        for key, value in package_value.items():
+                            setattr(self, key, value)
+
     def _set_data_from_config(self):
-        pkg_name = get_config_item(self.config, "package", "name")
-        if pkg_name != self.package:
-            print(f"Input package differs from config. Please check!")
-        self.upstream_repo_url = get_config_item(self.config, "package", "upstream_repo_url")
-        self.upstream_l10n_url = get_config_item(self.config, "package", "upstream_l10n_url")
-        self.trans_file_ext = get_config_item(self.config, "package", "trans_file_ext")
-        self.pkg_upstream_name = get_config_item(self.config, "package", "upstream_name")
-        self.pkg_downstream_name = get_config_item(self.config, "package", "downstream_name")
+        self._set_package_info()
 
         self.pkg_tp_engine = get_config_item(self.config, "source", "engine")
         self.pkg_tp_auth_usr = get_config_item(self.config, "source", "auth_usr")
@@ -179,15 +190,25 @@ class JobRunnerPull(JobRunner):
     Job Runner for Pull Jobs
     """
 
+    def _set_package_info(self):
+        packages_yml_file_path = get_config_item(get_config(), "packages", "yml_file_path")
+        packages: list = []
+        with open(packages_yml_file_path, "r") as stream:
+            try:
+                packages = yaml.safe_load(stream)
+            except yaml.YAMLError as exc:
+                print(exc)
+        if not packages:
+            return
+        for package in packages:
+            for package_name, package_values in package.items():
+                if package_name == self.package:
+                    for package_value in package_values:
+                        for key, value in package_value.items():
+                            setattr(self, key, value)
+
     def _set_data_from_config(self):
-        pkg_name = get_config_item(self.config, "package", "name")
-        if pkg_name != self.package:
-            print(f"Input package differs from config. Please check!")
-        self.upstream_repo_url = get_config_item(self.config, "package", "upstream_repo_url")
-        self.upstream_l10n_url = get_config_item(self.config, "package", "upstream_l10n_url")
-        self.trans_file_ext = get_config_item(self.config, "package", "trans_file_ext")
-        self.pkg_upstream_name = get_config_item(self.config, "package", "upstream_name")
-        self.pkg_downstream_name = get_config_item(self.config, "package", "downstream_name")
+        self._set_package_info()
 
         self.pkg_tp_engine = get_config_item(self.config, "source", "engine")
         self.pkg_tp_auth_usr = get_config_item(self.config, "source", "auth_usr")

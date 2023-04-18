@@ -9,4 +9,5 @@ ToDo List
 - [X] Push Jobs: Weblate to Phrase and Transifex to Phrase
 - [X] Pull Jobs: Vice Versa
 - [X] Setup packaging options.
+- [X] Add support for multiple packages.
 - [ ] Developer notes.

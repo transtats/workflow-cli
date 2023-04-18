@@ -1,0 +1,12 @@
+- anaconda:
+  - upstream_repo_url: https://github.com/rhinstaller/anaconda
+  - upstream_l10n_url: https://github.com/rhinstaller/anaconda-l10n
+  - trans_file_ext: po
+  - pkg_upstream_name: anaconda
+  - pkg_downstream_name: anaconda
+- cockpit:
+  - upstream_repo_url: https://github.com/cockpit-project/cockpit
+  - upstream_l10n_url: https://github.com/cockpit-project/cockpit-weblate
+  - trans_file_ext: po
+  - pkg_upstream_name: cockpit
+  - pkg_downstream_name: cockpit
