@@ -101,7 +101,6 @@ class JobRunnerPush(JobRunner):
         pkg_name = get_config_item(self.config, "package", "name")
         if pkg_name != self.package:
             print(f"Input package differs from config. Please check!")
-            exit(-1)
         self.upstream_repo_url = get_config_item(self.config, "package", "upstream_repo_url")
         self.upstream_l10n_url = get_config_item(self.config, "package", "upstream_l10n_url")
         self.trans_file_ext = get_config_item(self.config, "package", "trans_file_ext")
@@ -184,7 +183,6 @@ class JobRunnerPull(JobRunner):
         pkg_name = get_config_item(self.config, "package", "name")
         if pkg_name != self.package:
             print(f"Input package differs from config. Please check!")
-            exit(-1)
         self.upstream_repo_url = get_config_item(self.config, "package", "upstream_repo_url")
         self.upstream_l10n_url = get_config_item(self.config, "package", "upstream_l10n_url")
         self.trans_file_ext = get_config_item(self.config, "package", "trans_file_ext")
