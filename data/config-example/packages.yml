@@ -4,9 +4,111 @@
   - trans_file_ext: po
   - pkg_upstream_name: anaconda
   - pkg_downstream_name: anaconda
+- authselect:
+  - upstream_repo_url: https://github.com/authselect/authselect
+  - upstream_l10n_url: https://github.com/authselect/authselect
+  - trans_file_ext: po
+  - pkg_upstream_name: authselect
+  - pkg_downstream_name: authselect
+- candlepin:
+  - upstream_repo_url: https://github.com/candlepin/candlepin
+  - upstream_l10n_url: https://github.com/candlepin/candlepin
+  - trans_file_ext: po
+  - pkg_upstream_name: candlepin
+  - pkg_downstream_name: candlepin
 - cockpit:
   - upstream_repo_url: https://github.com/cockpit-project/cockpit
   - upstream_l10n_url: https://github.com/cockpit-project/cockpit-weblate
   - trans_file_ext: po
   - pkg_upstream_name: cockpit
   - pkg_downstream_name: cockpit
+- cockpit-composer:
+  - upstream_repo_url: https://github.com/osbuild/cockpit-composer
+  - upstream_l10n_url: https://github.com/osbuild/cockpit-composer
+  - trans_file_ext: po
+  - pkg_upstream_name: cockpit-composer
+  - pkg_downstream_name: cockpit-composer
+- cockpit-podman:
+  - upstream_repo_url: https://github.com/cockpit-project/cockpit-podman
+  - upstream_l10n_url: https://github.com/cockpit-project/cockpit-podman-weblate
+  - trans_file_ext: po
+  - pkg_upstream_name: cockpit-podman
+  - pkg_downstream_name: cockpit-podman
+- dnf:
+  - upstream_repo_url: https://github.com/rpm-software-management/dnf
+  - upstream_l10n_url: https://github.com/rpm-software-management/dnf
+  - trans_file_ext: po
+  - pkg_upstream_name: dnf
+  - pkg_downstream_name: dnf
+- libpwquality:
+  - upstream_repo_url: https://github.com/libpwquality/libpwquality/
+  - upstream_l10n_url: https://github.com/libpwquality/libpwquality/
+  - trans_file_ext: po
+  - pkg_upstream_name: libpwquality
+  - pkg_downstream_name: libpwquality
+- libuser:
+  - upstream_repo_url: https://pagure.io/libuser
+  - upstream_l10n_url: https://pagure.io/libuser
+  - trans_file_ext: po
+  - pkg_upstream_name: libuser
+  - pkg_downstream_name: libuser
+- libvirt:
+  - upstream_repo_url: https://gitlab.com/libvirt/libvirt
+  - upstream_l10n_url: https://gitlab.com/libvirt/libvirt
+  - trans_file_ext: po
+  - pkg_upstream_name: libvirt
+  - pkg_downstream_name: libvirt
+- oscap-anaconda-addon:
+  - upstream_repo_url: https://github.com/OpenSCAP/oscap-anaconda-addon
+  - upstream_l10n_url: https://github.com/OpenSCAP/oscap-anaconda-addon
+  - trans_file_ext: po
+  - pkg_upstream_name: oscap-anaconda-addon
+  - pkg_downstream_name: oscap-anaconda-addon
+- selinux:
+  - upstream_repo_url: https://github.com/fedora-selinux/selinux
+  - upstream_l10n_url: https://github.com/fedora-selinux/selinux
+  - trans_file_ext: po
+  - pkg_upstream_name: selinux
+  - pkg_downstream_name: selinux
+- pykickstart:
+  - upstream_repo_url: https://github.com/pykickstart/pykickstart
+  - upstream_l10n_url: https://github.com/pykickstart/pykickstart
+  - trans_file_ext: po
+  - pkg_upstream_name: pykickstart
+  - pkg_downstream_name: pykickstart
+- blivet:
+  - upstream_repo_url: https://github.com/storaged-project/blivet
+  - upstream_l10n_url: https://github.com/storaged-project/blivet
+  - trans_file_ext: po
+  - pkg_upstream_name: blivet
+  - pkg_downstream_name: python-blivet
+- python-meh:
+  - upstream_repo_url: https://github.com/rhinstaller/python-meh
+  - upstream_l10n_url: https://github.com/rhinstaller/python-meh
+  - trans_file_ext: po
+  - pkg_upstream_name: python-meh
+  - pkg_downstream_name: python-meh
+- python-simpleline:
+  - upstream_repo_url: https://github.com/rhinstaller/python-simpleline
+  - upstream_l10n_url: https://github.com/rhinstaller/python-simpleline
+  - trans_file_ext: po
+  - pkg_upstream_name: python-simpleline
+  - pkg_downstream_name: python-simpleline
+- setroubleshoot:
+  - upstream_repo_url: https://github.com/fedora-selinux/setroubleshoot
+  - upstream_l10n_url: https://github.com/fedora-selinux/setroubleshoot
+  - trans_file_ext: po
+  - pkg_upstream_name: setroubleshoot
+  - pkg_downstream_name: setroubleshoot
+- sssd:
+  - upstream_repo_url: https://github.com/SSSD/sssd
+  - upstream_l10n_url: https://github.com/SSSD/sssd
+  - trans_file_ext: po
+  - pkg_upstream_name: sssd
+  - pkg_downstream_name: sssd
+- subscription-manager:
+  - upstream_repo_url: https://github.com/candlepin/subscription-manager
+  - upstream_l10n_url: https://github.com/candlepin/subscription-manager
+  - trans_file_ext: po
+  - pkg_upstream_name: subscription-manager
+  - pkg_downstream_name: subscription-manager
