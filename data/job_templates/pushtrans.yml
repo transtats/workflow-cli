@@ -1,0 +1,28 @@
+job:
+  ci_pipeline: PROJECT_UID
+  exception: raise
+  execution: sequential
+  name: push translations
+  package: PACKAGE_NAME
+  return_type: json
+  tasks:
+  - clone:
+    - name: git repo
+    - type: REPO_TYPE
+    - branch: REPO_BRANCH
+    - recursive: false
+  - filter:
+    - name: files
+    - domain: PACKAGE_NAME
+    - ext: FORMAT
+    - dir: ''
+  - upload:
+    - name: Push files
+    - target_langs: TARGET_LANGS
+    - prehook: skip
+    - posthook: skip
+    - import_settings: project
+    - update: false
+    - prepend_branch: false
+    - prepend_package: false
+  type: pushtrans
