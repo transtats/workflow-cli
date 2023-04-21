@@ -44,7 +44,7 @@ def get_config():
             paths.append(custom_config_path)
 
     if not any(os.path.exists(path) for path in paths):
-        raise click.ClickException('No configuration file was found')
+        raise click.ClickException('No configuration file was found.')
 
     config.read(paths)
     return config

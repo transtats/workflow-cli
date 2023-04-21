@@ -12,13 +12,17 @@
 # WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 # License for the specific language governing permissions and limitations
 # under the License.
+import click
 import requests
 from twcli.config import get_config, get_config_item
 from twcli.constants import TRANSPLATFORM_ENGINES, API_TOKEN_PREFIX, GIT_PLATFORMS
 from twcli.service_layer.config.memsource import \
     resources as memsource_resources, media_types as memsource_media_types
 
-GITHUB_TOKEN = get_config_item(get_config(), "github", "token")
+try:
+    GITHUB_TOKEN = get_config_item(get_config(), "github", "token")
+except click.ClickException as e:
+    print(f"Warning: {e}\n")
 
 
 def request_phrase_token(phrase_user: str, phrase_pass: str):
